@@ -1,0 +1,42 @@
+server:
+  port: 8086
+
+logging:
+  config: classpath:application-log4j.yml
+
+spring:
+#  dubbo:
+#    application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+#      name: consumer
+#    registry:                 #注册中心配置，用于配置连接注册中心相关信息。
+#      address: N/A
+#    protocol:     #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
+#      name: dubbo
+#      port: 20880
+#    scan: com.bdth.producer.impl #服务暴露与发现消费所在的package
+  dubbo:
+    application:
+      timeout: 60000
+      name: auth-consumer
+    #注册中心地址
+    protocol:
+      name: dubbo
+    #注册中心地址，zookeeper集群，启动输出可以看见链接了多个
+    #单zookeeper服务：zookeeper://127.0.0.1:2181
+    registry:
+      address: N/A
+    #调用dubbo组建扫描的项目路径
+    scan: com.bdth.consumer.controller
+      #telnet端口
+    qos:
+      port: 54015
+    #检查服务是否可用默认为true，不可用时抛出异常，阻止spring初始化，为方便部署，可以改成false
+    consumer:
+      check: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML5
+    cache: false

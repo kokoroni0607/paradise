@@ -1,0 +1,43 @@
+logging:
+  config: classpath:application-log4j.yml
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+#  dubbo:
+#    application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+#      name: consumer
+#    registry:                 #注册中心配置，用于配置连接注册中心相关信息。
+#      address: N/A
+#    protocol:     #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
+#      name: dubbo
+#      port: 20880
+#    scan: com.bdth.producer.impl  #服务暴露与发现消费所在的package
+  dubbo:
+    #注册在注册中心的名称，唯一标识，请勿重复
+    application:
+      id: auth-branch
+      name: auth-branch
+    #注册中心地址，zookeeper集群，启动输出可以看见链接了多个
+    #单zookeeper服务：zookeeper://127.0.0.1:2181
+    registry:
+      address: N/A
+    #暴露服务方式
+    protocol:
+      id: dubbo
+      #默认名称，勿修改
+      name: dubbo
+      #暴露服务端口 （默认是20880，修改端口，不同的服务提供者端口不能重复）
+      port: 20880
+      status : server
+    #调用dubbo组建扫描的项目路径
+    scan: com.bdth.producer.impl
+
+server:
+  servlet:
+    context-path: /views
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8084
